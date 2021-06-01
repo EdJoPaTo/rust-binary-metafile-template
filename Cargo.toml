@@ -1,0 +1,15 @@
+[package]
+name = "rust-metafile-template"
+description = ""
+version = "0.1.0"
+license = ""
+repository = "https://github.com/EdJoPaTo/rust-metafile-template"
+authors = ["EdJoPaTo <rust-metafile-template-rust@edjopato.de>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[profile.release]
+lto = true
+
+[dependencies]
