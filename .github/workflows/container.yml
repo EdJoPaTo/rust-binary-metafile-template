@@ -10,7 +10,7 @@ on:
     branches:
       - main
   schedule:
-    - cron:  '42 0 * * *' # 0:42 UTC
+    - cron:  '42 0 * * 3' # weekly Wednesday 0:42 UTC
 
 jobs:
   docker:
