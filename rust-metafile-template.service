@@ -1,0 +1,20 @@
+[Unit]
+Description=Run rust-metafile-template
+Wants=network-online.target
+After=network-online.target
+StartLimitIntervalSec=0
+
+# There is too much specified. Remove whats not needed.
+[Service]
+Type=simple
+DynamicUser=true
+Restart=on-failure
+RestartSec=20
+Environment="BOT_TOKEN="
+ExecStart=/usr/local/bin/rust-metafile-template
+WorkingDirectory=/var/local/lib/rust-metafile-template/
+User=pi
+Group=pi
+
+[Install]
+WantedBy=multi-user.target
