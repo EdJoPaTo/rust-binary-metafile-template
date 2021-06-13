@@ -9,6 +9,7 @@ on:
   pull_request:
     branches:
       - main
+  # Build regularly in order to have up to date base images in the edge image
   schedule:
     - cron:  '42 0 * * 3' # weekly Wednesday 0:42 UTC
 
