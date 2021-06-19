@@ -13,6 +13,9 @@ sudo cp -uv ./*.service ./*.timer /usr/local/lib/systemd/system/
 sudo systemctl daemon-reload
 
 # stop, replace and start new version
-sudo systemctl stop rust-metafile-template.service
+sudo systemctl stop rust-metafile-template.service rust-metafile-template.timer
 sudo cp -v target/release/rust-metafile-template /usr/local/bin
+
+# You probably only need one
+sudo systemctl enable --now rust-metafile-template.service
 sudo systemctl enable --now rust-metafile-template.timer
