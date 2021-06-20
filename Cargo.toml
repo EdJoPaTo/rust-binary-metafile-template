@@ -2,7 +2,7 @@
 name = "rust-binary-metafile-template"
 description = ""
 version = "0.1.0"
-license = ""
+license = "MIT"
 repository = "https://github.com/EdJoPaTo/rust-binary-metafile-template"
 authors = ["EdJoPaTo <rust-binary-metafile-template-rust@edjopato.de>"]
 edition = "2018"
