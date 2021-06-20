@@ -103,7 +103,7 @@ jobs:
           echo "version is: $version"
           echo "GIT_TAG_VERSION=$version" >> $GITHUB_ENV
 
-          name="rust-metafile-template-$version-${{ matrix.triple }}"
+          name="rust-binary-metafile-template-$version-${{ matrix.triple }}"
           echo "artifact name is: $name"
           echo "ARTIFACT_NAME=$name" >> $GITHUB_ENV
 
@@ -130,13 +130,13 @@ jobs:
         run: >
           tar --gzip -cvf ${{ env.ARTIFACT_NAME }}.tar.gz
           completions LICENSE
-          -C target/${{ matrix.triple }}/release rust-metafile-template
+          -C target/${{ matrix.triple }}/release rust-binary-metafile-template
       - name: Package (windows)
         if: runner.os == 'Windows'
         run: |
           7z a ${{ env.ARTIFACT_NAME }}.zip completions LICENSE
           cd target/${{ matrix.triple }}/release
-          7z a ../../../${{ env.ARTIFACT_NAME }}.zip rust-metafile-template.exe
+          7z a ../../../${{ env.ARTIFACT_NAME }}.zip rust-binary-metafile-template.exe
           cd -
 
       - name: Upload Artifact

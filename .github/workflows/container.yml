@@ -19,7 +19,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            docker.io/edjopato/rust-metafile-template
+            docker.io/edjopato/rust-binary-metafile-template
             ghcr.io/${{ github.repository }}
           tags: |
             type=edge

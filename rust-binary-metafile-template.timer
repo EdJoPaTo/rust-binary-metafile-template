@@ -1,5 +1,5 @@
 [Unit]
-Description=Run rust-metafile-template
+Description=Run rust-binary-metafile-template
 
 [Timer]
 OnBootSec=5min

@@ -33,7 +33,7 @@ RUN sudo touch src/main.rs
 RUN cargo build --release
 
 # Size optimization
-RUN strip target/x86_64-unknown-linux-musl/release/rust-metafile-template
+RUN strip target/x86_64-unknown-linux-musl/release/rust-binary-metafile-template
 
 
 # Start building the final image
@@ -42,7 +42,7 @@ WORKDIR /app
 
 RUN apk --no-cache upgrade && apk --no-cache add libgcc
 
-COPY --from=builder /build/target/release/rust-metafile-template /usr/bin/
-COPY --from=builder /home/rust/target/x86_64-unknown-linux-musl/release/rust-metafile-template /usr/bin/
+COPY --from=builder /build/target/release/rust-binary-metafile-template /usr/bin/
+COPY --from=builder /home/rust/target/x86_64-unknown-linux-musl/release/rust-binary-metafile-template /usr/bin/
 
-ENTRYPOINT ["rust-metafile-template"]
+ENTRYPOINT ["rust-binary-metafile-template"]

@@ -5,7 +5,7 @@ set -e
 # Go to the project you want to improve via this template
 # cd ~/git/my-project
 # Run this script from the working directory of that project
-# ~/git/rust-metafile-template/copy-template-into-existing-project.sh
+# ~/git/rust-binary-metafile-template/copy-template-into-existing-project.sh
 
 pwd=$(pwd)
 name=$(basename "$pwd")
@@ -20,8 +20,8 @@ cp -rv \
     src/cli.rs \
     "$pwd/src"
 
-cp -rv rust-metafile-template.service "$pwd/$name.service"
-cp -rv rust-metafile-template.timer "$pwd/$name.timer"
+cp -rv rust-binary-metafile-template.service "$pwd/$name.service"
+cp -rv rust-binary-metafile-template.timer "$pwd/$name.timer"
 
 echo "everything copied"
 
@@ -29,6 +29,6 @@ cd -
 
 # Replace template name with folder name
 # macOS: add '' after -i like this: sed -i '' "s/…
-sed -i "s/rust-metafile-template/$name/g" Cargo.toml Dockerfile .github/**/*.yml install-systemd.sh ./*.service ./*.timer
+sed -i "s/rust-binary-metafile-template/$name/g" Cargo.toml Dockerfile .github/**/*.yml install-systemd.sh ./*.service ./*.timer
 
 git --no-pager diff --stat
