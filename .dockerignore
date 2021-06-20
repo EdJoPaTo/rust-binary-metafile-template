@@ -1,8 +1,6 @@
 .*
 *.md
-*.service
-*.timer
 /completions
+/systemd
 /target
 Dockerfile
-install-systemd.sh

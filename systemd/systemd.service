@@ -13,8 +13,8 @@ RestartSec=20
 Environment="BOT_TOKEN="
 ExecStart=/usr/local/bin/rust-binary-metafile-template
 WorkingDirectory=/var/local/lib/rust-binary-metafile-template/
-User=pi
-Group=pi
+User=rust-binary-metafile-template
+Group=rust-binary-metafile-template
 
 [Install]
 WantedBy=multi-user.target

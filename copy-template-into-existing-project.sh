@@ -13,15 +13,12 @@ name=$(basename "$pwd")
 cd "$(dirname "$0")"
 
 cp -rv \
-    {Cargo.toml,.gitignore,.github,.dockerignore,Dockerfile,build.rs,install-systemd.sh} \
+    {Cargo.toml,.gitignore,.github,.dockerignore,Dockerfile,build.rs,systemd} \
     "$pwd"
 
 cp -rv \
     src/cli.rs \
     "$pwd/src"
-
-cp -rv rust-binary-metafile-template.service "$pwd/$name.service"
-cp -rv rust-binary-metafile-template.timer "$pwd/$name.timer"
 
 echo "everything copied"
 
@@ -29,6 +26,6 @@ cd -
 
 # Replace template name with folder name
 # macOS: add '' after -i like this: sed -i '' "s/…
-sed -i "s/rust-binary-metafile-template/$name/g" Cargo.toml Dockerfile .github/**/*.yml install-systemd.sh ./*.service ./*.timer
+sed -i "s/rust-binary-metafile-template/$name/g" Cargo.toml Dockerfile .github/**/*.yml systemd/*
 
 git --no-pager diff --stat
