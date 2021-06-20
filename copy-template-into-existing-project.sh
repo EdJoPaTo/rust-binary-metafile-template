@@ -28,6 +28,7 @@ echo "everything copied"
 cd -
 
 # Replace template name with folder name
-sed -i '' "s/rust-metafile-template/$name/g" Cargo.toml Dockerfile .github/**/*.yml install-systemd.sh ./*.service ./*.timer
+# macOS: add '' after -i like this: sed -i '' "s/…
+sed -i "s/rust-metafile-template/$name/g" Cargo.toml Dockerfile .github/**/*.yml install-systemd.sh ./*.service ./*.timer
 
 git --no-pager diff --stat
