@@ -129,12 +129,12 @@ jobs:
         if: runner.os != 'Windows'
         run: >
           tar --gzip -cvf ${{ env.ARTIFACT_NAME }}.tar.gz
-          completions LICENSE
+          completions LICENSE README.md
           -C target/${{ matrix.triple }}/release rust-binary-metafile-template
       - name: Package (windows)
         if: runner.os == 'Windows'
         run: |
-          7z a ${{ env.ARTIFACT_NAME }}.zip completions LICENSE
+          7z a ${{ env.ARTIFACT_NAME }}.zip completions LICENSE README.md
           cd target/${{ matrix.triple }}/release
           7z a ../../../${{ env.ARTIFACT_NAME }}.zip rust-binary-metafile-template.exe
           cd -
