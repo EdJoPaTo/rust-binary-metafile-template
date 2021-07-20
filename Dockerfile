@@ -20,12 +20,12 @@ RUN cargo build --release --locked
 
 # Start building the final image
 FROM docker.io/library/debian:bullseye-slim
-WORKDIR /app
-
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
 
 COPY --from=builder /build/target/release/rust-binary-metafile-template /usr/bin/
 
