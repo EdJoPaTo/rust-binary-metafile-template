@@ -41,10 +41,6 @@ jobs:
           # Sometimes they dont have lint bugfixes which results in false positives -> Dont error, just warn.
           # Also some specified lints are not yet existing in the older rust version -> allow unknown lints.
           - os: ubuntu-latest
-            toolchain: 1.41.1 # Debian 10 Buster
-            clippyargs: -A unknown-lints -A clippy::unknown-clippy-lints
-            experimental: false
-          - os: ubuntu-latest
             toolchain: 1.48.0 # Debian 11 Bullseye
             clippyargs: -A unknown-lints -A clippy::unknown-clippy-lints
             experimental: false
