@@ -28,7 +28,7 @@ jobs:
           # Check future versions and maybe get some glances on soon to be lints
           - os: ubuntu-latest
             toolchain: beta
-            clippyargs: -W clippy::pedantic
+            clippyargs: -W clippy::pedantic -W clippy::nursery -W clippy::cargo
             features: --all-features
           - os: ubuntu-latest
             toolchain: nightly
