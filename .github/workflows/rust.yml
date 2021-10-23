@@ -35,6 +35,8 @@ jobs:
           # Check if it is still running on older Rust versions.
           # Sometimes they dont have lint bugfixes which results in false positives -> Dont error, just warn.
           # Also some specified lints are not yet existing in the older rust version -> allow unknown lints.
+          # https://packages.debian.org/search?keywords=rustc
+          # https://pkgs.alpinelinux.org/packages?name=rust
           - os: ubuntu-latest
             toolchain: 1.48.0 # Debian 11 Bullseye
             clippyargs: -A unknown-lints -A clippy::unknown-clippy-lints
