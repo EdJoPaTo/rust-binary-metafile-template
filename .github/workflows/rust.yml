@@ -37,7 +37,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: clippy
-          args: --verbose --locked --all-targets ${{ matrix.features }} -- ${{ matrix.clippyargs }}
+          args: --verbose --locked --all-targets ${{ matrix.features }} --color=always -- ${{ matrix.clippyargs }}
 
       - name: Check docs
         uses: actions-rs/cargo@v1
