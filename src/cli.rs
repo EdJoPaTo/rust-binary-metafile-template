@@ -1,10 +1,6 @@
-use clap::{App, AppSettings};
+use clap::{app_from_crate, App};
 
 #[must_use]
-pub fn build() -> App<'static, 'static> {
-    App::new(env!("CARGO_PKG_NAME"))
-        .version(env!("CARGO_PKG_VERSION"))
-        .author(env!("CARGO_PKG_AUTHORS"))
-        .about(env!("CARGO_PKG_DESCRIPTION"))
-        .global_setting(AppSettings::ColoredHelp)
+pub fn build() -> App<'static> {
+    app_from_crate!()
 }
