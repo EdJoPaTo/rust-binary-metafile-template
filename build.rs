@@ -10,7 +10,7 @@ fn main() {
     println!("cargo:rerun-if-changed=build.rs");
     println!("cargo:rerun-if-changed=src/cli.rs");
 
-    let out_dir = Path::new("completions/");
+    let out_dir = Path::new("target/completions/");
     drop(remove_dir_all(out_dir));
     create_dir_all(out_dir).unwrap();
 

@@ -136,16 +136,16 @@ jobs:
         run: >
           tar -cv
           LICENSE README.md
-          completions/
           systemd/**/*.service systemd/**/*.timer systemd/**/*.conf
-          -C target/${{ matrix.triple }}/release rust-binary-metafile-template
+          -C target/ completions/ -C ../
+          -C target/${{ matrix.triple }}/release/ rust-binary-metafile-template
           | gzip --best > ${{ env.ARTIFACT_NAME }}.tar.gz
       - name: Package (Windows)
         if: runner.os == 'Windows'
         run: >
           7z a ${{ env.ARTIFACT_NAME }}.zip
           LICENSE README.md
-          ./completions/
+          ./target/completions/
           ./target/${{ matrix.triple }}/release/rust-binary-metafile-template.exe
 
       - name: Upload artifact
