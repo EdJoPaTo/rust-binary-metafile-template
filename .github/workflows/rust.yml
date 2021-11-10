@@ -129,8 +129,14 @@ jobs:
           SDKROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk
         with:
           command: build
-          args: --release --verbose --locked --all-features --target ${{ matrix.triple }}
+          args: --release --verbose --locked --all-features --bins --examples --target ${{ matrix.triple }}
           use-cross: ${{ runner.os == 'Linux' && matrix.triple != 'x86_64-unknown-linux-gnu' }}
+
+      - name: Get examples
+        run: |
+          mkdir -p target/examples/
+          find target/${{ matrix.triple }}/release/examples -executable -type f -iregex "[^\.-]+" -exec cp {} target/examples/ \;
+          ls -al target/examples/
 
       - name: Package (*nix)
         if: runner.os != 'Windows'
@@ -138,7 +144,7 @@ jobs:
           tar -cv
           LICENSE README.md
           systemd/**/*.service systemd/**/*.timer systemd/**/*.conf
-          -C target/ completions/ -C ../
+          -C target/ completions/ examples/ -C ../
           -C target/${{ matrix.triple }}/release/ rust-binary-metafile-template
           | gzip --best > ${{ env.ARTIFACT_NAME }}.tar.gz
       - name: Package (Windows)
@@ -147,6 +153,7 @@ jobs:
           7z a ${{ env.ARTIFACT_NAME }}.zip
           LICENSE README.md
           ./target/completions/
+          ./target/examples/
           ./target/${{ matrix.triple }}/release/rust-binary-metafile-template.exe
 
       - name: Upload artifact
