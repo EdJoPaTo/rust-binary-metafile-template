@@ -28,4 +28,4 @@ cd -
 # macOS: add '' after -i like this: sed -i '' "s/…
 sed -i "s/rust-binary-metafile-template/$name/g" Cargo.toml Dockerfile .github/**/*.yml systemd/**/*
 
-git --no-pager diff --stat
+git --no-pager status --short
