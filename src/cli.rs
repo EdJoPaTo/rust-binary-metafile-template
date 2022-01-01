@@ -4,3 +4,8 @@ use clap::{app_from_crate, App};
 pub fn build() -> App<'static> {
     app_from_crate!()
 }
+
+#[test]
+fn verify_app() {
+    build().debug_assert();
+}

@@ -20,11 +20,11 @@ codegen-units = 1
 lto = true
 
 [build-dependencies]
-clap = "=3.0.0-beta.5"
-clap_generate = "=3.0.0-beta.5"
+clap = "3"
+clap_complete = "3"
 
 [dependencies]
 
 [dependencies.clap]
-version = "=3.0.0-beta.5"
-features = ["wrap_help"]
+version = "3"
+features = ["cargo", "wrap_help"]
