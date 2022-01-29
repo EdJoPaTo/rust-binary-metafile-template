@@ -136,9 +136,6 @@ jobs:
 
       - name: Build
         uses: actions-rs/cargo@v1
-        env:
-          # TODO: Remove this once macos-11 is macos-latest
-          SDKROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk
         with:
           command: build
           args: --release --verbose --locked --all-features --target ${{ matrix.triple }}
