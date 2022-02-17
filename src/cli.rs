@@ -1,11 +1,11 @@
-use clap::{app_from_crate, App};
+use clap::{command, Command};
 
 #[must_use]
-pub fn build() -> App<'static> {
-    app_from_crate!()
+pub fn build() -> Command<'static> {
+    command!()
 }
 
 #[test]
-fn verify_app() {
+fn verify() {
     build().debug_assert();
 }
