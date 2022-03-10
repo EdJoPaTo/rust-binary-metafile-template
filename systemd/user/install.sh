@@ -18,8 +18,8 @@ mkdir -p "$CONFIG_DIR/systemd/user/" "$HOME/.local/bin"
 nice cargo build --release --locked
 
 # systemd
-cp -uv "systemd/user/systemd.service" "$CONFIG_DIR/systemd/user/$name.service"
-cp -uv "systemd/user/systemd.timer" "$CONFIG_DIR/systemd/user/$name.timer"
+cp -uv "systemd/user/service" "$CONFIG_DIR/systemd/user/$name.service"
+cp -uv "systemd/user/timer" "$CONFIG_DIR/systemd/user/$name.timer"
 systemctl --user daemon-reload
 
 # stop, replace and start new version

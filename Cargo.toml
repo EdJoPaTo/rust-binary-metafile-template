@@ -24,3 +24,41 @@ clap_complete = "3"
 
 [dependencies]
 clap = { version = "3", features = ["cargo", "env", "wrap_help"] }
+
+# https://crates.io/crates/cargo-deb
+[package.metadata.deb]
+depends = ""
+maintainer-scripts = "systemd/system/"
+systemd-units = { enable = false, start = false }
+assets = [
+    ["target/release/rust-binary-metafile-template", "/usr/bin/rust-binary-metafile-template", "755"],
+    ["LICENSE", "/usr/share/licenses/rust-binary-metafile-template/LICENSE", "644"],
+    ["README.md", "/usr/share/doc/rust-binary-metafile-template/README.md", "644"],
+
+    ["systemd/user/service", "/lib/systemd/user/rust-binary-metafile-template.service", "644"],
+    ["systemd/user/timer", "/lib/systemd/user/rust-binary-metafile-template.timer", "644"],
+
+    ["target/completions/rust-binary-metafile-template.bash", "/usr/share/bash-completion/completions/rust-binary-metafile-template", "644"],
+    ["target/completions/rust-binary-metafile-template.fish", "/usr/share/fish/completions/rust-binary-metafile-template.fish", "644"],
+    ["target/completions/_rust-binary-metafile-template", "/usr/share/zsh/site-functions/_rust-binary-metafile-template", "644"],
+]
+
+# https://crates.io/crates/cargo-generate-rpm
+[package.metadata.generate-rpm]
+assets = [
+    { source = "target/release/rust-binary-metafile-template", dest = "/usr/bin/rust-binary-metafile-template", mode = "755" },
+    { source = "LICENSE", dest = "/usr/share/licenses/rust-binary-metafile-template/LICENSE", mode = "644", doc = true },
+    { source = "README.md", dest = "/usr/share/doc/rust-binary-metafile-template/README.md", mode = "644", doc = true },
+
+    { source = "systemd/system/service", dest = "/usr/lib/systemd/system/rust-binary-metafile-template.service", mode = "644" },
+    { source = "systemd/system/timer", dest = "/usr/lib/systemd/system/rust-binary-metafile-template.timer", mode = "644" },
+    { source = "systemd/system/sysuser", dest = "/usr/lib/sysusers.d/rust-binary-metafile-template.conf", mode = "644" },
+    { source = "systemd/system/tmpfile", dest = "/usr/lib/tmpfiles.d/rust-binary-metafile-template.conf", mode = "644" },
+
+    { source = "systemd/user/service", dest = "/usr/lib/systemd/user/rust-binary-metafile-template.service", mode = "644" },
+    { source = "systemd/user/timer", dest = "/usr/lib/systemd/user/rust-binary-metafile-template.timer", mode = "644" },
+
+    { source = "target/completions/rust-binary-metafile-template.bash", dest = "/usr/share/bash-completion/completions/rust-binary-metafile-template", mode = "644" },
+    { source = "target/completions/rust-binary-metafile-template.fish", dest = "/usr/share/fish/vendor_completions.d/rust-binary-metafile-template.fish", mode = "644" },
+    { source = "target/completions/_rust-binary-metafile-template", dest = "/usr/share/zsh/site-functions/_rust-binary-metafile-template", mode = "644" },
+]
