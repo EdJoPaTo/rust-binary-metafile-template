@@ -13,10 +13,10 @@ nice cargo build --release --locked
 
 # systemd
 sudo mkdir -p /usr/local/lib/systemd/system/
-sudo cp -uv "systemd/system/service" "/usr/local/lib/systemd/system/$name.service"
-sudo cp -uv "systemd/system/timer" "/usr/local/lib/systemd/system/$name.timer"
-sudo cp -uv "systemd/system/sysuser" "/usr/lib/sysusers.d/$name.conf"
-sudo cp -uv "systemd/system/tmpfile" "/usr/lib/tmpfiles.d/$name.conf"
+sudo cp -v "systemd/system/service" "/usr/local/lib/systemd/system/$name.service"
+sudo cp -v "systemd/system/timer" "/usr/local/lib/systemd/system/$name.timer"
+sudo cp -v "systemd/system/sysuser" "/usr/lib/sysusers.d/$name.conf"
+sudo cp -v "systemd/system/tmpfile" "/usr/lib/tmpfiles.d/$name.conf"
 sudo systemd-sysusers
 sudo systemd-tmpfiles --create
 sudo systemctl daemon-reload
