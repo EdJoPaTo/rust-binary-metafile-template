@@ -96,6 +96,9 @@ jobs:
             rpm: true
           - triple: arm-unknown-linux-gnueabihf
             os: ubuntu-20.04
+          # https://github.com/briansmith/ring/issues/1419
+          - triple: riscv64gc-unknown-linux-gnu
+            os: ubuntu-20.04
 
           - triple: x86_64-apple-darwin
             os: macos-11
@@ -105,8 +108,8 @@ jobs:
           - triple: x86_64-pc-windows-msvc
             os: windows-2022
           # https://github.com/briansmith/ring/issues/1167
-          # - triple: aarch64-pc-windows-msvc
-          #   os: windows-2022
+          - triple: aarch64-pc-windows-msvc
+            os: windows-2022
     steps:
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
