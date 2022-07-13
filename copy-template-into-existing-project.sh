@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -eu
 
 # Usage
 # Go to the project you want to improve via this template
@@ -7,22 +7,16 @@ set -e
 # Run this script from the working directory of that project
 # ~/git/rust-binary-metafile-template/copy-template-into-existing-project.sh
 
-pwd=$(pwd)
-name=$(basename "$pwd")
+name=$(basename "$PWD")
+templatedir="$(dirname "$0")"
 
-cd "$(dirname "$0")"
+cp -r \
+    "$templatedir/"{Cargo.toml,.github,.gitignore,.dockerignore,Dockerfile,build.rs,systemd} \
+    .
 
-cp -rv \
-    {Cargo.toml,.gitignore,.github,.dockerignore,Dockerfile,build.rs,systemd} \
-    "$pwd"
-
-cp -rv \
-    src/cli.rs \
-    "$pwd/src"
+cp "$templatedir/src/cli.rs" "./src"
 
 echo "everything copied"
-
-cd -
 
 # Replace template name with folder name
 # macOS: add '' after -i like this: sed -i '' "s/…
