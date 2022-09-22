@@ -10,7 +10,7 @@ Type=simple
 DynamicUser=true
 Restart=on-failure
 RestartSec=20
-Environment="BOT_TOKEN="
+#Environment="BOT_TOKEN="
 ExecStart=/usr/local/bin/rust-binary-metafile-template
 WorkingDirectory=/var/local/lib/rust-binary-metafile-template/
 User=rust-binary-metafile-template

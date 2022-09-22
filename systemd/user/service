@@ -9,7 +9,7 @@ StartLimitIntervalSec=0
 Type=simple
 Restart=on-failure
 RestartSec=20
-Environment="BOT_TOKEN="
+#Environment="BOT_TOKEN="
 ExecStart=%h/.local/bin/rust-binary-metafile-template
 WorkingDirectory=%h/.local/share/rust-binary-metafile-template/
 
