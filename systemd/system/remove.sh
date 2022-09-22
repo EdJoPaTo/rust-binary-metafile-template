@@ -1,17 +1,15 @@
 #!/usr/bin/env bash
 
-name="rust-binary-metafile-template"
+sudo systemctl disable --now "rust-binary-metafile-template.timer" "rust-binary-metafile-template.service"
 
-sudo systemctl disable --now "$name.timer" "$name.service"
+sudo rm -f "/usr/lib/tmpfiles.d/rust-binary-metafile-template.conf"
+sudo rm -f "/usr/lib/sysusers.d/rust-binary-metafile-template.conf"
+sudo rm -f "/usr/local/lib/systemd/system/rust-binary-metafile-template.service"
+sudo rm -f "/usr/local/lib/systemd/system/rust-binary-metafile-template.timer"
+sudo rm -f "/usr/local/bin/rust-binary-metafile-template"
 
-sudo rm -f "/usr/lib/tmpfiles.d/$name.conf"
-sudo rm -f "/usr/lib/sysusers.d/$name.conf"
-sudo rm -f "/usr/local/lib/systemd/system/$name.service"
-sudo rm -f "/usr/local/lib/systemd/system/$name.timer"
-sudo rm -f "/usr/local/bin/$name"
-
-sudo userdel -r "$name"
-sudo groupdel "$name"
+sudo userdel -r "rust-binary-metafile-template"
+sudo groupdel "rust-binary-metafile-template"
 
 sudo systemctl daemon-reload
 

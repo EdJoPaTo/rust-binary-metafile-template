@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 
-name="rust-binary-metafile-template"
-
-systemctl --user disable --now "$name.timer" "$name.service"
+systemctl --user disable --now "rust-binary-metafile-template.timer" "rust-binary-metafile-template.service"
 
 CONFIG_DIR=${XDG_CONFIG_DIRS:-"$HOME/.config"}
-rm -f "$CONFIG_DIR/systemd/user/$name.service"
-rm -f "$CONFIG_DIR/systemd/user/$name.timer"
-rm -f "$HOME/.local/bin/$name"
+rm -f "$CONFIG_DIR/systemd/user/rust-binary-metafile-template.service"
+rm -f "$CONFIG_DIR/systemd/user/rust-binary-metafile-template.timer"
+rm -f "$HOME/.local/bin/rust-binary-metafile-template"
 
 systemctl --user daemon-reload
 
