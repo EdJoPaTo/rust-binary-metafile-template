@@ -3,8 +3,8 @@ set -eu
 
 dir=$(basename "$(pwd)")
 if [ "$dir" == "systemd" ] || [ "$dir" == "user" ]; then
-    echo "run from main directiory like this: ./systemd/user/install.sh"
-    exit 1
+	echo "run from main directiory like this: ./systemd/user/install.sh"
+	exit 1
 fi
 
 # Create working directory (inspired by $XDG_DATA_HOME but using it would probably be messy in the .service file -> keep it simple)

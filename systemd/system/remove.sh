@@ -2,8 +2,8 @@
 
 sudo systemctl disable --now "rust-binary-metafile-template.timer" "rust-binary-metafile-template.service"
 
-sudo rm -f "/usr/lib/tmpfiles.d/rust-binary-metafile-template.conf"
-sudo rm -f "/usr/lib/sysusers.d/rust-binary-metafile-template.conf"
+sudo rm -f "/etc/tmpfiles.d/rust-binary-metafile-template.conf"
+sudo rm -f "/etc/sysusers.d/rust-binary-metafile-template.conf"
 sudo rm -f "/usr/local/lib/systemd/system/rust-binary-metafile-template.service"
 sudo rm -f "/usr/local/lib/systemd/system/rust-binary-metafile-template.timer"
 sudo rm -f "/usr/local/bin/rust-binary-metafile-template"
