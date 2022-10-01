@@ -19,11 +19,11 @@ codegen-units = 1
 lto = true
 
 [build-dependencies]
-clap = { version = "3", features = ["deprecated", "derive", "env"] }
+clap = { version = "4", features = ["deprecated", "derive", "env"] }
 clap_complete = "3"
 
 [dependencies]
-clap = { version = "3", features = ["deprecated", "derive", "env", "wrap_help"] }
+clap = { version = "4", features = ["deprecated", "derive", "env", "wrap_help"] }
 
 # https://crates.io/crates/cargo-deb
 [package.metadata.deb]
