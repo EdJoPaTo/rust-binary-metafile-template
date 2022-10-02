@@ -1,10 +1,10 @@
 use clap::{Parser, ValueHint};
 
 #[derive(Debug, Parser)]
-#[clap(about, author, version)]
+#[command(about, author, version)]
 pub struct Cli {
     /// Who to greet
-    #[clap(
+    #[arg(
         long,
         env = "USER",
         value_hint = ValueHint::Username,
@@ -13,7 +13,7 @@ pub struct Cli {
     pub name: String,
 
     /// Kind of greeting you want to get
-    #[clap(
+    #[arg(
         long,
         env = "GREETING",
         value_hint = ValueHint::Other,
