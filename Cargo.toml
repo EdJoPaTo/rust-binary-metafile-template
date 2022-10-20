@@ -4,7 +4,6 @@ description = ""
 version = "0.1.0"
 license = "MIT"
 repository = "https://github.com/EdJoPaTo/rust-binary-metafile-template"
-documentation = "https://docs.rs/rust-binary-metafile-template"
 authors = ["EdJoPaTo <rust-binary-metafile-template-rust@edjopato.de>"]
 edition = "2021"
 rust-version = "1.60.0"
