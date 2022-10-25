@@ -85,7 +85,10 @@ jobs:
           args: --verbose --locked --no-deps ${{ matrix.features }}
 
       - name: Run tests
-        run: cargo test --verbose --locked ${{ matrix.features }}
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --verbose --locked ${{ matrix.features }}
 
   prepare-packaging-tools:
     runs-on: ubuntu-22.04
