@@ -18,6 +18,16 @@ jobs:
 
       - uses: actions/checkout@v3
 
+      - uses: actions/cache@v3
+        with:
+          key: tarpaulin-${{ hashFiles('**/Cargo.lock') }}
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+
       - name: Run cargo-tarpaulin
         uses: actions-rs/tarpaulin@v0.1
         with:
