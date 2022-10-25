@@ -15,14 +15,8 @@ jobs:
           override: true
           profile: minimal
           components: rustfmt
-
       - uses: actions/checkout@v3
-
-      - name: Check format
-        uses: actions-rs/cargo@v1
-        with:
-          command: fmt
-          args: -- --check --verbose
+      - run: cargo fmt --check --verbose
 
   test:
     name: Test ${{ matrix.toolchain }} ${{ matrix.os }} ${{ matrix.features }}
@@ -91,10 +85,7 @@ jobs:
           args: --verbose --locked --no-deps ${{ matrix.features }}
 
       - name: Run tests
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --verbose --locked ${{ matrix.features }}
+        run: cargo test --verbose --locked ${{ matrix.features }}
 
   github-release:
     name: Release ${{ matrix.triple }}
@@ -149,16 +140,10 @@ jobs:
 
       - name: Setup deb tools
         if: runner.os == 'Linux'
-        uses: actions-rs/cargo@v1
-        with:
-          command: install
-          args: cargo-deb
+        run: cargo install cargo-deb
       - name: Setup rpm tools
         if: matrix.rpm
-        uses: actions-rs/cargo@v1
-        with:
-          command: install
-          args: cargo-generate-rpm
+        run: cargo install cargo-generate-rpm
 
       - uses: actions/checkout@v3
         with:
@@ -176,10 +161,7 @@ jobs:
           echo "ARTIFACT_NAME=$name" >> $GITHUB_ENV
 
       - name: Fetch dependencies
-        uses: actions-rs/cargo@v1
-        with:
-          command: fetch
-          args: --verbose --locked
+        run: cargo fetch --verbose --locked
 
       - name: Build
         uses: actions-rs/cargo@v1
