@@ -87,10 +87,31 @@ jobs:
       - name: Run tests
         run: cargo test --verbose --locked ${{ matrix.features }}
 
+  prepare-packaging-tools:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          override: true
+          profile: minimal
+          toolchain: stable
+
+      - name: Cache packaging tools
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-cargo-packaging-tools
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/.crates*
+
+      - name: Install packaging tools
+        run: cargo install cargo-deb cargo-generate-rpm
+
   github-release:
     name: Release ${{ matrix.triple }}
     runs-on: ${{ matrix.os }}
-    needs: test
+    needs: [test, prepare-packaging-tools]
     strategy:
       fail-fast: false
       matrix:
@@ -138,12 +159,14 @@ jobs:
           target: ${{ matrix.triple }}
           toolchain: stable
 
-      - name: Setup deb tools
+      - name: Get packaging tools from cache
         if: runner.os == 'Linux'
-        run: cargo install cargo-deb
-      - name: Setup rpm tools
-        if: matrix.rpm
-        run: cargo install cargo-generate-rpm
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-cargo-packaging-tools
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/.crates*
 
       - uses: actions/checkout@v3
         with:
