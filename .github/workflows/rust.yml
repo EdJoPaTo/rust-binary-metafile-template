@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Setup Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
-          profile: minimal
-          components: rustfmt
+        shell: bash -eux {0}
+        run: |
+          rustup --version
+          rustup show
+          rustup toolchain install stable --profile minimal --component rustfmt
+          rustup default stable
       - uses: actions/checkout@v3
       - run: cargo fmt --check --verbose
 
@@ -57,12 +57,12 @@ jobs:
             features: --all-features
     steps:
       - name: Setup Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          components: clippy
-          override: true
-          profile: minimal
-          toolchain: ${{ matrix.toolchain }}
+        shell: bash -eux {0}
+        run: |
+          rustup --version
+          rustup show
+          rustup toolchain install ${{ matrix.toolchain }} --profile minimal --component clippy
+          rustup default ${{ matrix.toolchain }}
 
       - uses: actions/checkout@v3
 
@@ -91,11 +91,12 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Setup Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          override: true
-          profile: minimal
-          toolchain: stable
+        shell: bash -eux {0}
+        run: |
+          rustup --version
+          rustup show
+          rustup toolchain install stable --profile minimal
+          rustup default stable
 
       - name: Cache packaging tools
         uses: actions/cache@v3
@@ -152,12 +153,12 @@ jobs:
             features: --no-default-features
     steps:
       - name: Setup Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          override: true
-          profile: minimal
-          target: ${{ matrix.triple }}
-          toolchain: stable
+        shell: bash -eux {0}
+        run: |
+          rustup --version
+          rustup show
+          rustup toolchain install stable --profile minimal --target ${{ matrix.triple }}
+          rustup default stable
 
       - name: Get packaging tools from cache
         if: runner.os == 'Linux'
