@@ -6,7 +6,6 @@ on:
 
 jobs:
   rustfmt:
-    name: Rustfmt
     runs-on: ubuntu-22.04
     steps:
       - name: Setup Rust
