@@ -1,7 +1,7 @@
 use clap::{Parser, ValueHint};
 
 #[derive(Debug, Parser)]
-#[command(about, author, version)]
+#[command(about, version)]
 pub struct Cli {
     /// Who to greet
     #[arg(
