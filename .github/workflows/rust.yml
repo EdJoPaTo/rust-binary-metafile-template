@@ -100,7 +100,6 @@ jobs:
           rustup show
           rustup toolchain install stable --profile minimal
           rustup default stable
-
       - name: Cache packaging tools
         uses: actions/cache@v3
         with:
@@ -108,7 +107,6 @@ jobs:
           path: |
             ~/.cargo/bin/
             ~/.cargo/.crates*
-
       - name: Install packaging tools
         run: cargo install cargo-deb cargo-generate-rpm
 
