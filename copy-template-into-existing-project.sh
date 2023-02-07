@@ -10,6 +10,7 @@ set -eu
 name=$(basename "$PWD")
 templatedir="$(dirname "$0")"
 
+rm -rf .github/workflows/
 cp -r \
     "$templatedir/"{Cargo.toml,.github,.gitignore,.dockerignore,Dockerfile,build.rs,systemd} \
     .
