@@ -36,5 +36,5 @@ jobs:
       - name: Upload Report
         uses: actions/upload-artifact@v3
         with:
-          name: report
+          name: coverage-report
           path: target/llvm-cov/html
