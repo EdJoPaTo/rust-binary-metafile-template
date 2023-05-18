@@ -12,8 +12,8 @@ templatedir="$(dirname "$0")"
 
 rm -rf .github/workflows/
 cp -r \
-    "$templatedir/"{Cargo.toml,.github,.gitignore,.dockerignore,Dockerfile,build.rs,systemd} \
-    .
+	"$templatedir/"{Cargo.toml,.github,.gitignore,.dockerignore,Dockerfile,build.rs,systemd} \
+	.
 
 cp "$templatedir/src/cli.rs" "./src"
 
