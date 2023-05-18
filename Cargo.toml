@@ -31,6 +31,7 @@ maintainer-scripts = "systemd/system/"
 systemd-units = { enable = false, start = false }
 assets = [
     ["target/release/rust-binary-metafile-template", "/usr/bin/rust-binary-metafile-template", "755"],
+    ["CHANGELOG.md", "/usr/share/doc/rust-binary-metafile-template/CHANGELOG.md", "644"],
     ["LICENSE", "/usr/share/licenses/rust-binary-metafile-template/LICENSE", "644"],
     ["README.md", "/usr/share/doc/rust-binary-metafile-template/README.md", "644"],
 
@@ -46,6 +47,7 @@ assets = [
 [package.metadata.generate-rpm]
 assets = [
     { source = "target/release/rust-binary-metafile-template", dest = "/usr/bin/rust-binary-metafile-template", mode = "755" },
+    { source = "CHANGELOG.md", dest = "/usr/share/doc/rust-binary-metafile-template/CHANGELOG.md", mode = "644", doc = true },
     { source = "LICENSE", dest = "/usr/share/licenses/rust-binary-metafile-template/LICENSE", mode = "644", doc = true },
     { source = "README.md", dest = "/usr/share/doc/rust-binary-metafile-template/README.md", mode = "644", doc = true },
 
