@@ -6,7 +6,7 @@ license = "MIT"
 repository = "https://github.com/EdJoPaTo/rust-binary-metafile-template"
 authors = ["EdJoPaTo <rust-binary-metafile-template-rust@edjopato.de>"]
 edition = "2021"
-rust-version = "1.64.0"
+rust-version = "1.70.0"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [features]
