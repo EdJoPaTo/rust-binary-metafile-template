@@ -87,29 +87,10 @@ jobs:
           command: test
           args: --verbose --locked ${{ matrix.features }}
 
-  prepare-packaging-tools:
-    runs-on: ubuntu-latest
-    permissions: {}
-    steps:
-      - name: Setup Rust
-        shell: bash -eux {0}
-        run: |
-          rustup toolchain install stable --profile minimal
-          rustup default stable
-      - name: Cache packaging tools
-        uses: actions/cache@v3
-        with:
-          key: ${{ runner.os }}-cargo-packaging-tools
-          path: |
-            ~/.cargo/bin/
-            ~/.cargo/.crates*
-      - name: Install packaging tools
-        run: cargo install cargo-deb cargo-generate-rpm
-
   github-release:
     name: Release ${{ matrix.triple }}
     runs-on: ${{ matrix.os }}
-    needs: [test, prepare-packaging-tools]
+    needs: test
     permissions:
       contents: write
     strategy:
@@ -157,14 +138,11 @@ jobs:
           rustup toolchain install stable --profile minimal --target ${{ matrix.triple }}
           rustup default stable
 
-      - name: Get packaging tools from cache
+      - name: Install packaging tools
         if: runner.os == 'Linux'
-        uses: actions/cache@v3
+        uses: taiki-e/install-action@v2
         with:
-          key: ${{ runner.os }}-cargo-packaging-tools
-          path: |
-            ~/.cargo/bin/
-            ~/.cargo/.crates*
+          tool: cargo-deb,cargo-generate-rpm
 
       - uses: actions/checkout@v4
         with:
