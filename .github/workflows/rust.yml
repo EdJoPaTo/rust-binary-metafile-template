@@ -64,28 +64,16 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Fetch dependencies
-        uses: actions-rs/cargo@v1
-        with:
-          command: fetch
-          args: --verbose --locked
+        run: cargo fetch --verbose --locked
 
       - name: Check clippy
-        uses: actions-rs/cargo@v1
-        with:
-          command: clippy
-          args: --verbose --locked --all-targets ${{ matrix.features }} -- ${{ matrix.clippyargs }}
+        run: cargo clippy --verbose --locked --all-targets ${{ matrix.features }} -- ${{ matrix.clippyargs }}
 
       - name: Check docs
-        uses: actions-rs/cargo@v1
-        with:
-          command: doc
-          args: --verbose --locked --no-deps ${{ matrix.features }}
+        run: cargo doc --verbose --locked --no-deps ${{ matrix.features }}
 
       - name: Run tests
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --verbose --locked ${{ matrix.features }}
+        run: cargo test --verbose --locked ${{ matrix.features }}
 
   github-release:
     name: Release ${{ matrix.triple }}
@@ -138,11 +126,11 @@ jobs:
           rustup toolchain install stable --profile minimal --target ${{ matrix.triple }}
           rustup default stable
 
-      - name: Install packaging tools
+      - name: Install cargo tools
         if: runner.os == 'Linux'
         uses: taiki-e/install-action@v2
         with:
-          tool: cargo-deb,cargo-generate-rpm
+          tool: cross,cargo-deb,cargo-generate-rpm
 
       - uses: actions/checkout@v4
         with:
@@ -163,11 +151,7 @@ jobs:
         run: cargo fetch --verbose --locked
 
       - name: Build
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --release --verbose --locked ${{ matrix.features }} --target ${{ matrix.triple }}
-          use-cross: ${{ runner.os == 'Linux' }}
+        run: ${{ runner.os == 'Linux' && 'cross' || 'cargo' }} build --release --verbose --locked ${{ matrix.features }} --target ${{ matrix.triple }}
 
       - name: Package tar.gz (*nix)
         if: runner.os != 'Windows'
