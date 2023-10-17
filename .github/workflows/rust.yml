@@ -30,7 +30,7 @@ jobs:
           - macos-latest
           - windows-latest
         clippyargs:
-          - -D clippy::pedantic -D warnings
+          - -D warnings -D clippy::pedantic
         features:
           - --no-default-features
           - "" # default features
@@ -40,11 +40,11 @@ jobs:
           - toolchain: beta
             os: ubuntu-latest
             features: --all-features
-            clippyargs: -D clippy::pedantic -D clippy::nursery -D clippy::cargo
+            clippyargs: -D warnings -D clippy::pedantic -D clippy::nursery -D clippy::cargo
           - toolchain: nightly
             os: ubuntu-latest
             features: --all-features
-            clippyargs: -D clippy::pedantic
+            clippyargs: -D warnings -D clippy::pedantic
 
           # Check the minimum supported Rust version (MSRV).
           # Sometimes old rust versions don't yet have the lints (allow unknown) or don't have fixes in lints (false positives -> don't error, just warn).
