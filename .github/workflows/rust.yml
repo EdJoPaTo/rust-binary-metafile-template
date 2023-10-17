@@ -20,7 +20,7 @@ jobs:
   test:
     name: Test ${{ matrix.toolchain }} ${{ matrix.os }} ${{ matrix.features }}
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.toolchain == 'nightly' }}
+    continue-on-error: ${{ (matrix.toolchain == 'beta') || (matrix.toolchain == 'nightly') }}
     strategy:
       fail-fast: false
       matrix:
@@ -41,11 +41,11 @@ jobs:
           - toolchain: beta
             os: ubuntu-latest
             features: --all-features
-            clippyargs: -W clippy::pedantic -W clippy::nursery -W clippy::cargo
+            clippyargs: -D clippy::pedantic -D clippy::nursery -D clippy::cargo
           - toolchain: nightly
             os: ubuntu-latest
             features: --all-features
-            clippyargs: -W clippy::pedantic
+            clippyargs: -D clippy::pedantic
 
           # Check the minimum supported Rust version (MSRV).
           # Sometimes old rust versions don't yet have the lints (allow unknown) or don't have fixes in lints (false positives -> don't error, just warn).
