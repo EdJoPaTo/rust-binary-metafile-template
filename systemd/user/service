@@ -6,7 +6,7 @@ StartLimitIntervalSec=0
 
 # There is too much specified. Remove whats not needed.
 [Service]
-Type=simple
+Type=exec
 Restart=on-failure
 RestartSec=20
 #Environment=BOT_TOKEN=
