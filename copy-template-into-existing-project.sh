@@ -15,8 +15,6 @@ cp -r \
 	"$templatedir/"{Cargo.toml,.github,.gitignore,.dockerignore,Dockerfile,build.rs,systemd} \
 	.
 
-cp "$templatedir/src/cli.rs" "./src"
-
 echo "everything copied"
 
 # Replace template name with folder name
