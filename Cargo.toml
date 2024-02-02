@@ -21,6 +21,7 @@ strip = "debuginfo"
 [build-dependencies]
 clap = { version = "4", features = ["deprecated", "derive", "env"] }
 clap_complete = "4"
+clap_mangen = "0.2"
 
 [dependencies]
 clap = { version = "4", features = ["deprecated", "derive", "env", "wrap_help"] }
@@ -31,26 +32,28 @@ depends = ""
 maintainer-scripts = "systemd/system/"
 systemd-units = { enable = false, start = false }
 assets = [
-	["target/release/rust-binary-metafile-template", "/usr/bin/rust-binary-metafile-template", "755"],
-	["CHANGELOG.md", "/usr/share/doc/rust-binary-metafile-template/CHANGELOG.md", "644"],
-	["LICENSE", "/usr/share/licenses/rust-binary-metafile-template/LICENSE", "644"],
-	["README.md", "/usr/share/doc/rust-binary-metafile-template/README.md", "644"],
+	["target/release/rust-binary-metafile-template", "/usr/bin/", "755"],
+	["CHANGELOG.md", "/usr/share/doc/rust-binary-metafile-template/", "644"],
+	["LICENSE", "/usr/share/licenses/rust-binary-metafile-template/", "644"],
+	["README.md", "/usr/share/doc/rust-binary-metafile-template/", "644"],
 
 	["systemd/user/service", "/lib/systemd/user/rust-binary-metafile-template.service", "644"],
 	["systemd/user/timer", "/lib/systemd/user/rust-binary-metafile-template.timer", "644"],
 
 	["target/completions/rust-binary-metafile-template.bash", "/usr/share/bash-completion/completions/rust-binary-metafile-template", "644"],
-	["target/completions/rust-binary-metafile-template.fish", "/usr/share/fish/completions/rust-binary-metafile-template.fish", "644"],
-	["target/completions/_rust-binary-metafile-template", "/usr/share/zsh/site-functions/_rust-binary-metafile-template", "644"],
+	["target/completions/rust-binary-metafile-template.fish", "/usr/share/fish/completions/", "644"],
+	["target/completions/_rust-binary-metafile-template", "/usr/share/zsh/site-functions/", "644"],
+
+	["target/manpages/*", "/usr/share/man/man1/", "644"],
 ]
 
 # https://crates.io/crates/cargo-generate-rpm
 [package.metadata.generate-rpm]
 assets = [
-	{ source = "target/release/rust-binary-metafile-template", dest = "/usr/bin/rust-binary-metafile-template", mode = "755" },
-	{ source = "CHANGELOG.md", dest = "/usr/share/doc/rust-binary-metafile-template/CHANGELOG.md", mode = "644", doc = true },
-	{ source = "LICENSE", dest = "/usr/share/licenses/rust-binary-metafile-template/LICENSE", mode = "644", doc = true },
-	{ source = "README.md", dest = "/usr/share/doc/rust-binary-metafile-template/README.md", mode = "644", doc = true },
+	{ source = "target/release/rust-binary-metafile-template", dest = "/usr/bin/", mode = "755" },
+	{ source = "CHANGELOG.md", dest = "/usr/share/doc/rust-binary-metafile-template/", mode = "644", doc = true },
+	{ source = "LICENSE", dest = "/usr/share/licenses/rust-binary-metafile-template/", mode = "644", doc = true },
+	{ source = "README.md", dest = "/usr/share/doc/rust-binary-metafile-template/", mode = "644", doc = true },
 
 	{ source = "systemd/system/service", dest = "/usr/lib/systemd/system/rust-binary-metafile-template.service", mode = "644" },
 	{ source = "systemd/system/timer", dest = "/usr/lib/systemd/system/rust-binary-metafile-template.timer", mode = "644" },
@@ -61,6 +64,8 @@ assets = [
 	{ source = "systemd/user/timer", dest = "/usr/lib/systemd/user/rust-binary-metafile-template.timer", mode = "644" },
 
 	{ source = "target/completions/rust-binary-metafile-template.bash", dest = "/usr/share/bash-completion/completions/rust-binary-metafile-template", mode = "644" },
-	{ source = "target/completions/rust-binary-metafile-template.fish", dest = "/usr/share/fish/vendor_completions.d/rust-binary-metafile-template.fish", mode = "644" },
-	{ source = "target/completions/_rust-binary-metafile-template", dest = "/usr/share/zsh/site-functions/_rust-binary-metafile-template", mode = "644" },
+	{ source = "target/completions/rust-binary-metafile-template.fish", dest = "/usr/share/fish/vendor_completions.d/", mode = "644" },
+	{ source = "target/completions/_rust-binary-metafile-template", dest = "/usr/share/zsh/site-functions/", mode = "644" },
+
+	{ source = "target/manpages/*", dest = "/usr/share/man/man1/", mode = "644", doc = true },
 ]
