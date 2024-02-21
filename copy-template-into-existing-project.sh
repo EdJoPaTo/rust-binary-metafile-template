@@ -7,6 +7,8 @@ set -eu
 # Run this script from the working directory of that project
 # ~/git/rust-binary-metafile-template/copy-template-into-existing-project.sh
 
+git diff --quiet || (echo "repo unclean. stage or commit first" && exit 1)
+
 name=$(basename "$PWD")
 templatedir="$(dirname "$0")"
 
