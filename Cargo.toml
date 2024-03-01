@@ -12,6 +12,12 @@ rust-version = "1.74.0"
 [features]
 default = []
 
+[lints.rust]
+unsafe_code = "forbid"
+[lints.clippy]
+pedantic = "warn"
+nursery = "warn"
+
 [profile.release]
 # See https://doc.rust-lang.org/cargo/reference/profiles.html
 codegen-units = 1
