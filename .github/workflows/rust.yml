@@ -20,12 +20,13 @@ jobs:
   clippy:
     name: Clippy ${{ matrix.toolchain }}
     runs-on: ubuntu-latest
-    continue-on-error: ${{ matrix.toolchain == 'nightly' }}
+    continue-on-error: ${{ (matrix.toolchain == 'beta') || (matrix.toolchain == 'nightly') }}
     strategy:
       fail-fast: false
       matrix:
         toolchain:
           - stable
+          - beta
           - nightly
     env:
       RUSTFLAGS: --deny warnings
@@ -48,6 +49,7 @@ jobs:
       matrix:
         toolchain:
           - stable
+          - beta
           - 1.74 # MSRV: minimum supported Rust version
         os:
           - ubuntu-latest
@@ -84,6 +86,7 @@ jobs:
       matrix:
         toolchain:
           - stable
+          - beta
           - nightly
           - 1.74 # MSRV: minimum supported Rust version
         os:
