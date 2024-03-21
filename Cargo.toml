@@ -22,7 +22,6 @@ nursery = "warn"
 # See https://doc.rust-lang.org/cargo/reference/profiles.html
 codegen-units = 1
 lto = true
-strip = "debuginfo"
 
 [build-dependencies]
 clap = { version = "4", features = ["deprecated", "derive", "env"] }
