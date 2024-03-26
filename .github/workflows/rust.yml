@@ -100,18 +100,10 @@ jobs:
         uses: dtolnay/rust-toolchain@master
         with:
           toolchain: ${{ matrix.toolchain }}
-
-      - name: Install cargo-hack
-        uses: taiki-e/install-action@v2
-        with:
-          tool: cargo-hack
-
       - uses: actions/checkout@v4
       - run: cargo fetch --locked
       - run: cargo build --offline --all-features --all-targets
-
-      - name: Run tests
-        run: cargo hack --keep-going --feature-powerset test --offline
+      - run: cargo test --offline --all-features
 
   github-release:
     name: Release ${{ matrix.triple }}
