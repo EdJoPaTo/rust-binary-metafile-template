@@ -42,6 +42,10 @@ jobs:
           toolchain: ${{ matrix.toolchain }}
           components: clippy
       - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          key: clippy-${{ matrix.toolchain }}-${{ hashFiles('**/Cargo.lock') }}
+          path: target/
       - run: cargo fetch --locked
       - run: cargo clippy --offline --all-features --all-targets
       - run: cargo doc --offline --all-features --no-deps
@@ -71,6 +75,10 @@ jobs:
           tool: cargo-hack
 
       - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          key: features-${{ matrix.toolchain }}-${{ matrix.os }}-${{ hashFiles('**/Cargo.lock') }}
+          path: target/
       - run: cargo fetch --locked
 
       - name: Check all targets
@@ -95,6 +103,10 @@ jobs:
         with:
           tool: cargo-hack
       - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          key: msrv-${{ matrix.os }}-${{ hashFiles('**/Cargo.lock') }}
+          path: target/
       - run: cargo fetch --locked
       - run: cargo hack --keep-going --feature-powerset --no-dev-deps --rust-version check --offline
 
@@ -119,6 +131,10 @@ jobs:
         with:
           toolchain: ${{ matrix.toolchain }}
       - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          key: test-${{ matrix.toolchain }}-${{ matrix.os }}-${{ hashFiles('**/Cargo.lock') }}
+          path: target/
       - run: cargo fetch --locked
       - run: cargo build --offline --all-features --all-targets
       - run: cargo test --offline --all-features
@@ -183,6 +199,10 @@ jobs:
           echo "artifact: $name"
           echo "ARTIFACT_NAME=$name" >> $GITHUB_ENV
 
+      - uses: actions/cache@v4
+        with:
+          key: release-${{ matrix.triple }}-${{ hashFiles('**/Cargo.lock') }}
+          path: target/
       - run: cargo fetch --locked
 
       - name: Build
