@@ -24,7 +24,7 @@ jobs:
         with:
           key: coverage-${{ hashFiles('**/Cargo.lock') }}
           path: target/
-      - run: cargo fetch --locked
+      - run: cargo fetch
 
       - name: Run cargo-llvm-cov
         run: cargo llvm-cov --all-features --html
