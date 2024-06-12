@@ -64,8 +64,6 @@ jobs:
         with:
           key: clippy-${{ steps.rust.outputs.cachekey }}-${{ hashFiles('**/Cargo.*') }}
           path: target/
-          restore-keys: |
-            check-${{ steps.rust.outputs.cachekey }}-${{ hashFiles('**/Cargo.*') }}
       - run: cargo clippy --offline --all-features --all-targets
 
   doc:
@@ -95,8 +93,6 @@ jobs:
         with:
           key: doc-${{ steps.rust.outputs.cachekey }}-${{ hashFiles('**/Cargo.*') }}
           path: target/
-          restore-keys: |
-            check-${{ steps.rust.outputs.cachekey }}-${{ hashFiles('**/Cargo.*') }}
       - run: cargo doc --offline --all-features --no-deps
 
   features:
