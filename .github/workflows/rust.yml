@@ -21,8 +21,24 @@ jobs:
       - uses: actions/checkout@v4
       - run: cargo fmt --check --verbose
 
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+      - uses: actions/checkout@v4
+      - run: cargo fetch --locked
+      - uses: actions/cache@v4
+        with:
+          key: check-${{ steps.rust.outputs.cachekey }}-${{ hashFiles('**/Cargo.*') }}
+          path: target/
+      - run: cargo check --offline --all-features
+
   clippy:
     name: Clippy ${{ matrix.toolchain }}
+    needs: check
     runs-on: ubuntu-latest
     continue-on-error: ${{ (matrix.toolchain == 'beta') || (matrix.toolchain == 'nightly') }}
     strategy:
@@ -47,11 +63,44 @@ jobs:
         with:
           key: clippy-${{ steps.rust.outputs.cachekey }}-${{ hashFiles('**/Cargo.*') }}
           path: target/
+          restore-keys: |
+            check-${{ steps.rust.outputs.cachekey }}-${{ hashFiles('**/Cargo.*') }}
       - run: cargo clippy --offline --all-features --all-targets
+
+  doc:
+    name: Doc ${{ matrix.toolchain }}
+    needs: check
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ (matrix.toolchain == 'beta') || (matrix.toolchain == 'nightly') }}
+    strategy:
+      fail-fast: false
+      matrix:
+        toolchain:
+          - stable
+          - beta
+          - nightly
+    env:
+      RUSTFLAGS: --deny warnings
+    steps:
+      - name: Setup Rust
+        id: rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ matrix.toolchain }}
+          components: clippy
+      - uses: actions/checkout@v4
+      - run: cargo fetch
+      - uses: actions/cache@v4
+        with:
+          key: doc-${{ steps.rust.outputs.cachekey }}-${{ hashFiles('**/Cargo.*') }}
+          path: target/
+          restore-keys: |
+            check-${{ steps.rust.outputs.cachekey }}-${{ hashFiles('**/Cargo.*') }}
       - run: cargo doc --offline --all-features --no-deps
 
   features:
     name: Features ${{ matrix.toolchain }} ${{ matrix.os }}
+    needs: check
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -117,6 +166,7 @@ jobs:
 
   test:
     name: Test ${{ matrix.toolchain }} ${{ matrix.os }}
+    needs: check
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.toolchain == 'nightly' }}
     strategy:
@@ -147,6 +197,7 @@ jobs:
 
   release:
     name: Release ${{ matrix.triple }}
+    needs: check
     runs-on: ${{ matrix.os }}
     permissions:
       contents: write
@@ -208,7 +259,7 @@ jobs:
           echo "artifact: $name"
           echo "ARTIFACT_NAME=$name" >> $GITHUB_ENV
 
-      - run: cargo fetch --locked
+      - run: cargo fetch
       - uses: actions/cache@v4
         with:
           key: release-${{ matrix.triple }}-${{ steps.rust.outputs.cachekey }}-${{ hashFiles('**/Cargo.*') }}
