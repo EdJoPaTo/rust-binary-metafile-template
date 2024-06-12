@@ -25,6 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup Rust
+        id: rust
         uses: dtolnay/rust-toolchain@master
         with:
           toolchain: stable
