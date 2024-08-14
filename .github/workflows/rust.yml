@@ -92,8 +92,6 @@ jobs:
           - ubuntu-latest
           - macos-latest
           - windows-latest
-    env:
-      RUSTFLAGS: --allow unknown-lints
     steps:
       - uses: dtolnay/rust-toolchain@master
         id: rust
