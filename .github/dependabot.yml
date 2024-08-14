@@ -12,9 +12,6 @@ updates:
       time: "02:42" # UTC
     commit-message:
       prefix: "build(cargo):"
-    groups:
-      non-breaking:
-        update-types: ["minor", "patch"]
 
   - package-ecosystem: "github-actions"
     directory: "/"
