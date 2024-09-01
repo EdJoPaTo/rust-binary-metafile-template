@@ -15,6 +15,8 @@ templatedir="$(dirname "$0")"
 # Set the default of 1.63, the version on Debian bullseye
 rustversion=$(rg --replace='$1' '^rust-version\s*=\s*"(.+)"$' Cargo.toml || echo "1.63")
 
+featurecount=$(cargo metadata --no-deps --format-version=1 | jq ".packages.[].features|length")
+
 rm -rf .github/workflows/
 cp -r \
 	"$templatedir/"{Cargo.toml,rustfmt.toml,.github,.gitignore,.dockerignore,Dockerfile,build.rs,systemd} \
@@ -22,11 +24,22 @@ cp -r \
 
 echo "everything copied"
 
-# Replace template name with folder name
-# macOS: add '' after -i like this: sed -i '' "s/…
-sed -i "s/rust-binary-metafile-template/$name/g" Cargo.toml Dockerfile .github/**/*.yml systemd/**/*
+function sedi {
+	if [[ $OSTYPE = darwin* ]]; then
+		sed -i '' "$@"
+	else
+		sed -i "$@"
+	fi
+}
 
-sed -i "s/rust-version = .*/rust-version = \"$rustversion\"/g" Cargo.toml
-sed -i "s/- '1.74'/- '$rustversion'/g" .github/**/*.yml
+# Replace template name with folder name
+sedi "s/rust-binary-metafile-template/$name/g" Cargo.toml Dockerfile .github/**/*.yml systemd/**/*
+
+sedi "s/rust-version = .*/rust-version = \"$rustversion\"/g" Cargo.toml
+sedi "s/- '1.74'/- '$rustversion'/g" .github/**/*.yml
+
+if (( featurecount == 0 )); then
+	sedi "s/ --all-features//g" .github/**/*.yml
+fi
 
 git --no-pager status --short
