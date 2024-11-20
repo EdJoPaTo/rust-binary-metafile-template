@@ -28,5 +28,5 @@ RUN apt-get update \
 
 WORKDIR /app
 
-COPY --from=builder /build/target/release/rust-binary-metafile-template /usr/bin/
+COPY --from=builder /build/target/release/rust-binary-metafile-template /usr/local/bin/
 ENTRYPOINT ["rust-binary-metafile-template"]
