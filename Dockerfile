@@ -1,4 +1,4 @@
-FROM docker.io/library/rust:1-bookworm as builder
+FROM docker.io/library/rust:1-bookworm AS builder
 WORKDIR /build
 RUN apt-get update \
 	&& apt-get upgrade -y \
