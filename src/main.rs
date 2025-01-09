@@ -1,4 +1,4 @@
-use clap::Parser;
+use clap::Parser as _;
 
 mod cli;
 
