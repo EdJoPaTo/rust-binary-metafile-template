@@ -8,6 +8,7 @@ on:
 jobs:
   rustfmt:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: dtolnay/rust-toolchain@nightly
         with:
@@ -17,6 +18,7 @@ jobs:
 
   clippy:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     continue-on-error: ${{ (matrix.toolchain == 'beta') || (matrix.toolchain == 'nightly') }}
     strategy:
       fail-fast: false
@@ -44,6 +46,7 @@ jobs:
 
   features:
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -79,6 +82,7 @@ jobs:
 
   test:
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
     continue-on-error: ${{ matrix.toolchain == 'nightly' }}
     strategy:
       fail-fast: false
@@ -109,6 +113,7 @@ jobs:
   release:
     name: Release ${{ matrix.triple }}
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
     permissions:
       contents: write
     strategy:

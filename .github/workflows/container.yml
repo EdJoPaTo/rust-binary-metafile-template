@@ -22,6 +22,7 @@ permissions:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: docker/metadata-action@v5
         id: meta
