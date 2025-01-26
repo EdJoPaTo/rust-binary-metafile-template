@@ -18,7 +18,6 @@ COPY . ./
 RUN cargo build --release --frozen --offline
 
 
-# Start building the final image
 FROM docker.io/library/debian:bookworm-slim AS final
 RUN apt-get update \
 	&& apt-get upgrade -y \
