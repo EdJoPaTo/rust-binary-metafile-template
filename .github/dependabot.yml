@@ -14,8 +14,9 @@ updates:
       prefix: "build(cargo):"
     groups:
       clap:
-        patterns:
-          - "clap*"
+        patterns: ["clap*"]
+      patches:
+        update-types: ["patch"]
 
   - package-ecosystem: "github-actions"
     directory: "/"
