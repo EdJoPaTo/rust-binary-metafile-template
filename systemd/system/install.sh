@@ -3,7 +3,7 @@ set -eu
 
 dir=$(basename "$(pwd)")
 if [ "$dir" == "systemd" ] || [ "$dir" == "system" ]; then
-	echo "run from main directiory like this: ./systemd/system/install.sh"
+	echo "run from main directory like this: ./systemd/system/install.sh"
 	exit 1
 fi
 
