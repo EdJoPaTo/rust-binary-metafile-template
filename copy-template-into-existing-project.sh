@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eu
+set -eu -o pipefail
 
 # Usage
 # Go to the project you want to improve via this template
@@ -40,6 +40,10 @@ sedi "s/- \"1.74\"/- \"$rustversion\"/g" .github/**/*.yml
 
 if (( featurecount == 0 )); then
 	sedi "s/ --all-features//g" .github/**/*.yml
+fi
+
+if compgen -G "**/lib.rs" >/dev/null; then
+	echo "avoid-breaking-exported-api = false" >clippy.toml
 fi
 
 git --no-pager status --short
