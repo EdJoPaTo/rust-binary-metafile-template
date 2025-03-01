@@ -52,7 +52,6 @@ jobs:
       matrix:
         toolchain:
           - stable
-          - beta
           - "1.74"
         os:
           - ubuntu-latest
