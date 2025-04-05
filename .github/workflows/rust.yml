@@ -39,8 +39,8 @@ jobs:
         with:
           key: clippy-${{ steps.rust.outputs.cachekey }}-${{ hashFiles('**/Cargo.*') }}
           path: target/
-      - run: cargo clippy --offline --all-features --all-targets
-      - run: cargo doc --offline --all-features --no-deps
+      - run: cargo clippy --offline --all-targets --all-features
+      - run: cargo doc --offline --no-deps --all-features
 
   features:
     runs-on: ${{ matrix.os }}
@@ -102,8 +102,8 @@ jobs:
         with:
           key: test-${{ matrix.os }}-${{ steps.rust.outputs.cachekey }}-${{ hashFiles('**/Cargo.*') }}
           path: target/
-      - run: cargo build --offline --all-features --all-targets
-      - run: cargo test --offline --all-features --no-fail-fast
+      - run: cargo build --offline --all-targets --all-features
+      - run: cargo test --offline --no-fail-fast --all-features
 
   release:
     name: Release ${{ matrix.triple }}
@@ -172,7 +172,7 @@ jobs:
           key: release-${{ matrix.triple }}-${{ steps.rust.outputs.cachekey }}-${{ hashFiles('**/Cargo.*') }}
           path: target/
 
-      - run: ${{ runner.os == 'Linux' && 'cross' || 'cargo' }} build --release --offline --all-features --target ${{ matrix.triple }}
+      - run: ${{ runner.os == 'Linux' && 'cross' || 'cargo' }} build --release --offline --target ${{ matrix.triple }} --all-features
 
       - name: Package tar.gz (*nix)
         if: runner.os != 'Windows'
