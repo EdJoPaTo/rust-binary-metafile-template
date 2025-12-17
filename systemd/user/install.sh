@@ -1,8 +1,8 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 set -eu
 
-dir=$(basename "$(pwd)")
-if [ "$dir" == "systemd" ] || [ "$dir" == "user" ]; then
+dir=$(basename "$PWD")
+if [ "$dir" = "systemd" ] || [ "$dir" = "user" ]; then
 	echo "run from main directory like this: ./systemd/user/install.sh"
 	exit 1
 fi

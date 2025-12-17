@@ -1,8 +1,8 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 set -eu
 
-dir=$(basename "$(pwd)")
-if [ "$dir" == "systemd" ] || [ "$dir" == "system" ]; then
+dir=$(basename "$PWD")
+if [ "$dir" = "systemd" ] || [ "$dir" = "system" ]; then
 	echo "run from main directory like this: ./systemd/system/install.sh"
 	exit 1
 fi
@@ -10,7 +10,7 @@ fi
 nice cargo build --release --locked
 
 # systemd
-function copyIntoLocal() {
+copyIntoLocal() {
 	sudo mkdir -p "$(dirname "$2")"
 	sed -e 's#/usr/#/usr/local/#' -e 's#/var/#/var/local/#' "$1" | sudo tee "$2" >/dev/null
 }

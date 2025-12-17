@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
+set -u
 
 sudo systemctl disable --now "rust-binary-metafile-template.timer" "rust-binary-metafile-template.service"
 
@@ -12,6 +13,5 @@ sudo userdel -r "rust-binary-metafile-template"
 sudo groupdel "rust-binary-metafile-template"
 
 sudo systemctl daemon-reload
-
 
 echo "/var/local/lib/rust-binary-metafile-template/ is not touched and is still existing"
