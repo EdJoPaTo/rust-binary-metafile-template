@@ -1,0 +1,48 @@
+when:
+  - event:
+      - push
+      - tag
+
+matrix:
+  platform:
+    - linux/amd64
+    - linux/arm64
+
+labels:
+  platform: ${platform}
+
+steps:
+  - name: build
+    image: ghcr.io/edjopato/rust-ci-container:edge
+    environment:
+      CARGO_INCREMENTAL: 0
+      CARGO_TERM_COLOR: always
+      RUSTFLAGS: --deny warnings
+    commands:
+      - '[ "$(nproc)" -gt 4 ] && export CARGO_BUILD_JOBS=4'
+      - cargo fetch
+      - nice cargo build --release --offline --all-features
+
+      - cargo deb --no-build --no-strip
+
+      - export RUST_TRIPLE=$(rustc --print=host-tuple)
+      - >
+        tar -cavf rust-binary-metafile-template-$RUST_TRIPLE.tar.xz
+        README.md
+        -C target/ completions/ -C ../
+        -C target/ manpages/ -C ../
+        -C target/release/ rust-binary-metafile-template
+      - ls -A1hs target/debian *.tar.*
+
+  # see https://woodpecker-ci.org/plugins/release
+  - name: publish
+    when:
+      - event: tag
+        ref: refs/tags/v*
+    image: docker.io/woodpeckerci/plugin-release:0.2
+    settings:
+      files:
+        - "target/debian/*.deb"
+        - "*.tar.*"
+      api_key:
+        from_secret: CODEBERG_RELEASE_TOKEN

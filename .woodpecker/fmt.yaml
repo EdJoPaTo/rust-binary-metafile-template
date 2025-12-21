@@ -1,0 +1,10 @@
+when:
+  - event: push
+
+steps:
+  - name: fmt
+    image: ghcr.io/edjopato/rust-ci-container:edge
+    environment:
+      CARGO_TERM_COLOR: always
+    commands:
+      - cargo +nightly fmt --check --verbose

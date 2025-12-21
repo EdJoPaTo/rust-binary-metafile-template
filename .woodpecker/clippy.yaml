@@ -1,0 +1,15 @@
+when:
+  - event: push
+
+steps:
+  - name: clippy
+    image: ghcr.io/edjopato/rust-ci-container:edge
+    environment:
+      CARGO_INCREMENTAL: 0
+      CARGO_TERM_COLOR: always
+      RUSTFLAGS: --deny warnings
+    commands:
+      - '[ "$(nproc)" -gt 4 ] && export CARGO_BUILD_JOBS=4'
+      - cargo fetch
+      - nice cargo clippy --offline --all-targets --all-features
+      - nice cargo doc --offline --no-deps --all-features

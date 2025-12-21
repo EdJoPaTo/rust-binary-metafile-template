@@ -19,7 +19,7 @@ featurecount=$(cargo metadata --no-deps --format-version=1 | jq ".packages.[].fe
 
 rm -rf .github/workflows/
 cp -r \
-	"$templatedir/"{Cargo.toml,rustfmt.toml,.github,.gitignore,.dockerignore,Dockerfile,build.rs,systemd} \
+	"$templatedir"/{Cargo.toml,rustfmt.toml,.github,.woodpecker,.gitignore,.dockerignore,Dockerfile,build.rs,systemd} \
 	.
 
 echo "everything copied"
@@ -33,7 +33,7 @@ sedi() {
 }
 
 # Replace template name with folder name
-sedi "s/rust-binary-metafile-template/$name/g" Cargo.toml Dockerfile .github/**/*.yml systemd/**/*
+sedi "s/rust-binary-metafile-template/$name/g" Cargo.toml Dockerfile .github/**/*.yml .woodpecker/*.yaml systemd/**/*
 
 sedi "s/rust-version = .*/rust-version = \"$rustversion\"/g" Cargo.toml
 sedi "s/- \"1.74\"/- \"$rustversion\"/g" .github/**/*.yml
