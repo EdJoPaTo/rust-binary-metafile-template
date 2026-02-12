@@ -24,13 +24,10 @@ cp -r \
 
 echo "everything copied"
 
-sedi() {
-	if [[ $OSTYPE = darwin* ]]; then
-		sed -i '' "$@"
-	else
-		sed -i "$@"
-	fi
-}
+case "$(uname)" in
+Darwin) sedi() { sed -i '' "$@"; } ;;
+*)      sedi() { sed -i "$@"; } ;;
+esac
 
 # Replace template name with folder name
 sedi "s/rust-binary-metafile-template/$name/g" Cargo.toml Dockerfile .github/**/*.yml .woodpecker/*.yaml systemd/**/*
