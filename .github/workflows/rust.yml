@@ -204,6 +204,7 @@ jobs:
       - uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.triple }}
+          archive: false
           path: |
             *.deb
             *.rpm
