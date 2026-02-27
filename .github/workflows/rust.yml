@@ -202,14 +202,25 @@ jobs:
         run: cargo generate-rpm --auto-req disabled --target ${{ matrix.triple }} --output ${{ env.ARTIFACT_NAME }}.rpm
 
       - uses: actions/upload-artifact@v7
+        if: runner.os != 'Windows'
         with:
-          name: ${{ matrix.triple }}
           archive: false
-          path: |
-            *.deb
-            *.rpm
-            *.tar.gz
-            *.zip
+          path: "*.tar.gz"
+      - uses: actions/upload-artifact@v7
+        if: runner.os == 'Windows'
+        with:
+          archive: false
+          path: "*.zip"
+      - uses: actions/upload-artifact@v7
+        if: runner.os == 'Linux'
+        with:
+          archive: false
+          path: "*.deb"
+      - uses: actions/upload-artifact@v7
+        if: runner.os == 'Linux'
+        with:
+          archive: false
+          path: "*.rpm"
 
       - name: Create GitHub release
         if: startsWith(github.ref, 'refs/tags/v')
