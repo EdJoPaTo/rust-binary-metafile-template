@@ -33,7 +33,7 @@ esac
 sedi "s/rust-binary-metafile-template/$name/g" Cargo.toml Dockerfile .github/**/*.yml .woodpecker/*.yaml systemd/**/*
 
 sedi "s/rust-version = .*/rust-version = \"$rustversion\"/g" Cargo.toml
-sedi "s/- \"1.74\"/- \"$rustversion\"/g" .github/**/*.yml
+sedi "s/- \"1.85\"/- \"$rustversion\"/g" .github/**/*.yml
 
 if ((featurecount == 0)); then
 	sedi "s/ --all-features//g" .github/**/*.yml

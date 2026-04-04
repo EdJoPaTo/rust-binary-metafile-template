@@ -5,8 +5,8 @@ version = "0.1.0"
 license = "MIT"
 repository = "https://github.com/EdJoPaTo/rust-binary-metafile-template"
 authors = ["EdJoPaTo <rust-binary-metafile-template-rust@edjopato.de>"]
-edition = "2021"
-rust-version = "1.74"
+edition = "2024"
+rust-version = "1.85"
 
 [features]
 # default = []
@@ -29,7 +29,7 @@ lto = true
 [build-dependencies]
 clap = { version = "4", features = ["deprecated", "derive", "env"] }
 clap_complete = "4"
-clap_mangen = "0.2"
+clap_mangen = { version = "0.3", features = ["env"] }
 
 [dependencies]
 clap = { version = "4", features = ["deprecated", "derive", "env", "wrap_help"] }
