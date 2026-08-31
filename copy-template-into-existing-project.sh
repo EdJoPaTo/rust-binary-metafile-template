@@ -12,8 +12,8 @@ git diff --quiet || (echo "repo unclean. stage or commit first" && exit 1)
 name=$(basename "$PWD")
 templatedir="$(dirname "$0")"
 
-# Set the default of 1.63, the version on Debian bullseye
-rustversion=$(rg --replace='$1' '^rust-version\s*=\s*"(.+)"$' Cargo.toml || echo "1.63")
+# Set the default of 1.63, the version on Debian trixie
+rustversion=$(rg --replace='$1' '^rust-version\s*=\s*"(.+)"$' Cargo.toml || echo "1.85")
 
 featurecount=$(cargo metadata --no-deps --format-version=1 | jq ".packages.[].features|length")
 
